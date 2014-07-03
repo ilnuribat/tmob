@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>car1.png</file>
+        <file>fon1.png</file>
+        <file>human.png</file>
+        <file>success.png</file>
+        <file>fon.png</file>
+        <file>fon_grid.png</file>
+    </qresource>
+    <qresource prefix="/pic">
+        <file>src/car.svg</file>
+        <file>src/car50.png</file>
+        <file>src/car100.png</file>
+        <file>src/car700.png</file>
+        <file>human_1_fone.png</file>
+        <file>src/fon_cell_of_table.png</file>
+        <file>src/fon_cell_of_table_100.png</file>
+    </qresource>
+</RCC>
