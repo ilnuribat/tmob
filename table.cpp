@@ -44,7 +44,6 @@ void table::update_screen()
     w = QApplication::primaryScreen()->availableSize().width();
 
     ui->verticalLayoutWidget->setGeometry(QRect(0, 0, w, h));
-    ui->verticalLayoutWidget_3->setGeometry(QRect(0, 0, w, h));
 }
 
 QString table::getHttp()
