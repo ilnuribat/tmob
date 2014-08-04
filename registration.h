@@ -3,6 +3,12 @@
 
 #include <QMainWindow>
 #include "extern_vars.h"
+#include <QTimer>
+#include <QApplication>
+#include <QScreen>
+#include <QDebug>
+#include <QStringList>
+#include <QObject>
 
 namespace Ui {
 class registration;
@@ -16,24 +22,19 @@ public:
     explicit registration(QWidget *parent = 0);
     ~registration();
     int h, w;
-    void update_screen();
-
+    QTimer *timer;
+    void getCities();
+    void getDirection();
 signals:
     void prev_button();
     void next_button();
 
 private slots:
     void on_pushButton_2_clicked();
-
+    void update_screen();
     void on_pushButton_clicked();
-
-    void on_radioButton_clicked();
-
-    void on_radioButton_2_clicked();
-
-    void on_radioButton_3_clicked();
-
-    void on_radioButton_4_clicked();
+    void on_comboBox_activated(const QString &arg1);
+    void on_comboBox_2_activated(const QString &arg1);
 
 private:
     Ui::registration *ui;

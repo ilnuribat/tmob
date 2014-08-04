@@ -7,6 +7,18 @@
 #include <QApplication>
 #include <QNetworkReply>
 #include "extern_vars.h"
+#include <QApplication>
+
+#include <QNetworkAccessManager>
+
+#include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValueRef>
+#include <QTimer>
+#include <QUrl>
+#include <QString>
+#include <QDebug>
 
 namespace Ui {
 class table;
@@ -22,7 +34,7 @@ public:
     int h, w;
     QString getHttp();
     void parserJSON(QString httpResponse);
-    QNetworkAccessManager * pManager;
+
 
 private slots:
     void on_pushButton_clicked();
@@ -37,7 +49,7 @@ private slots:
     void on_p15_18_clicked();
     void on_p18_21_clicked();
     void on_p21_24_clicked();
-    void standToQueue(QString time);//обобщаем все нажатия. При нажатии вызываем только одну функцию.
+    void standToQueue();//обобщаем все нажатия. При нажатии вызываем только одну функцию.
 
 signals:
     void prev_button();

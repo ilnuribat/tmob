@@ -15,5 +15,7 @@
         <file>human_1_fone.png</file>
         <file>src/fon_cell_of_table.png</file>
         <file>src/fon_cell_of_table_100.png</file>
+        <file>src/tableFon.png</file>
+        <file>src/tableFon.svg</file>
     </qresource>
 </RCC>

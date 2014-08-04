@@ -21,6 +21,5 @@ int main(int argc, char *argv[])
     QObject::connect(&r, SIGNAL(prev_button()), &w, SLOT(show()));//registration -> welcome
     QObject::connect(&r, SIGNAL(next_button()), &t, SLOT(show()));//registration -> table
     QObject::connect(&t, SIGNAL(prev_button()), &r, SLOT(show()));//table -> registration
-
     return a.exec();
 }

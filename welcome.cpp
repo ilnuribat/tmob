@@ -1,22 +1,23 @@
 #include "welcome.h"
 #include "ui_welcome.h"
-#include <QApplication>
-#include <QScreen>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrl>
-#include <QString>
-#include <QDebug>
-#include <QObject>
+
 
 welcome::welcome(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::welcome)
 {
     ui->setupUi(this);
+    qDebug() << "constructor";
     update_screen();
-
+    ui->pushButton->setStyleSheet(
+                        "background-color: green;"
+                        "border-style: outset;"
+                        "border-width: 2px;"
+                        "border-radius: 15px;"
+                        "border-color: beige;"
+                        "font: bold 24px;"
+                        "padding: 6px;"
+                    );
 }
 
 welcome::~welcome()
@@ -24,35 +25,54 @@ welcome::~welcome()
     delete ui;
 }
 
+void welcome::registrationInServer(QString postData)
+{
+    QNetworkAccessManager *pManager = new QNetworkAccessManager();
+    connect(pManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinish(QNetworkReply*)));
+    pManager->post(QNetworkRequest(QUrl("http://192.168.1.168/registration?")), postData.toUtf8());
+}
+
 void welcome::on_pushButton_clicked()
 {
-    if(HUMAN == "unDefined")
-    {
-        ui->label_2->setText("Выберите пункт - пассажир или водитель");
-        return;
-    }
+    qDebug() << "next button clicked";
 
+    if(HUMAN == "unDefined") return;
+
+    PHONE_NUMBER = ui->phoneNumber->text();
+    NAME = ui->lineEdit->text();
+    //registrationInServer(QString("human=" + HUMAN + "&name=" + NAME + "&phone=" + PHONE_NUMBER));
     emit next_button();
     this->hide();
 }
 
 void welcome::update_screen()
 {
-    h= QApplication::primaryScreen()->availableSize().height();
-    w= QApplication::primaryScreen()->availableSize().width();
-    ui->verticalLayoutWidget->setGeometry(QRect(0, 0, w, h));
+    h = screenH;    //QApplication::primaryScreen()->size().height();
+    w = screenW;    //QApplication::primaryScreen()->size().width();
+    ui->gridLayoutWidget->setGeometry(QRect(0, 0, w, h));
+    //this->setGeometry(QRect(0, 0, w, h));
 }
 
-void welcome::replyFinish(QNetworkReply*)
+void welcome::replyFinish(QNetworkReply *reply)
 {
+    qDebug() << QString(reply->readAll());
 }
 
-void welcome::on_radioButton_clicked()
+void welcome::on_phoneNumber_editingFinished()
 {
-    HUMAN = "passanger_count";
+    ui->phoneNumber->deselect();
 }
 
-void welcome::on_radioButton_2_clicked()
+void welcome::on_pushButton_2_clicked()
 {
-    HUMAN = "driver_count";
+    ui->pushButton_3->setDisabled(false);
+    ui->pushButton_2->setDisabled(true);
+    HUMAN = "driver";
+}
+
+void welcome::on_pushButton_3_clicked()
+{
+    ui->pushButton_3->setDisabled(true);
+    ui->pushButton_2->setDisabled(false);
+    HUMAN = "passanger";
 }
